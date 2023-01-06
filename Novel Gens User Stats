@@ -1,0 +1,12 @@
+--How many creatures has each user favorited?
+SELECT 
+    users.email,
+    COUNT(creatures.name) AS favorited_creatures
+FROM novel_gens_db.content_favorites AS favorites
+INNER JOIN novel_gens_db.creatures AS creatures
+ON favorites.content_id = creatures.id
+INNER JOIN novel_gens_db.users AS users
+ON favorites.user_id = users.id
+GROUP BY users.email
+HAVING favorited_creatures >= 1
+ORDER BY favorited_creatures DESC;
