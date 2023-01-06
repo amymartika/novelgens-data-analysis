@@ -56,3 +56,40 @@ updated_at datetime NOT NULL,
 is_sad bit NOT NULL,
 is_powerful bit NOT NULL,
 is_dangerous bit NOT NULL );
+
+CREATE TABLE novel_gens_db.follows (
+id integer PRIMARY KEY,
+user_id integer NOT NULL,
+followed_content_type varchar NOT NULL,
+followed_content_id integer NOT NULL,
+created_at datetime NOT NULL,
+updated_at datetime NOT NULL );
+
+CREATE TABLE novel_gens_db.ownership_contracts (
+id integer PRIMARY KEY,
+creature_id integer NOT NULL,
+user_id integer NOT NULL,
+created_at datetime NOT NULL,
+updated_at datetime NOT NULL );
+
+CREATE TABLE novel_gens_db.environment_submitted_image_pairings (
+id integer PRIMARY KEY, 
+environment id integer NOT NULL,
+submitted_image_id integer NOT NULL,
+created_at datetime NOT NULL,
+updated_at datetime NOT NULL );
+
+CREATE TABLE novel_gens_db.kudos (
+id integer PRIMARY KEY,
+user_id integer NOT NULL,
+content_type varchar NOT NULL,
+content_id integer NOT NULL,
+created_at datetime NOT NULL,
+updated_at datetime NOT NULL );
+
+CREATE TABLE novel_gens_db.creature_tags (
+id integer PRIMARY KEY,
+creature_id integer NOT NULL,
+story_id integer NOT NULL,
+created_at datetime NOT NULL,
+updated_at dattime NOT NULL );
