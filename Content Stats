@@ -8,3 +8,15 @@ INNER JOIN novel_gens_db.submitted_images AS submissions
 ON creatures.id = submissions.creature_id
 GROUP BY creatures.name
 ORDER BY total_submissions DESC;
+
+--Is there an even distribution of feedback provided for each creature?
+SELECT 
+    feedback.content_id,
+    creatures.name,
+    COUNT(*) AS feedback_given,
+    creatures.created_at
+FROM novel_gens_db.content_feedback_forms AS feedback
+INNER JOIN novel_gens_db.creatures AS creatures
+ON feedback.content_id = creatures.id
+GROUP BY feedback.content_id
+ORDER BY creatures.created_at desc;
