@@ -93,3 +93,10 @@ creature_id integer NOT NULL,
 story_id integer NOT NULL,
 created_at datetime NOT NULL,
 updated_at dattime NOT NULL );
+
+CREATE TABLE novel_gens_db.submitted_images (
+id integer PRIMARY KEY,
+user_id integer,
+creature_id integer,
+title varchar,
+description varchar );
