@@ -1,0 +1,10 @@
+--Which creatures have the most images submitted? How rare are those creatures?
+SELECT
+    creatures.name,
+    creatures.rarity,
+    COUNT(submissions.creature_id) AS total_submissions
+FROM novel_gens_db.creatures AS creatures
+INNER JOIN novel_gens_db.submitted_images AS submissions
+ON creatures.id = submissions.creature_id
+GROUP BY creatures.name
+ORDER BY total_submissions DESC;
