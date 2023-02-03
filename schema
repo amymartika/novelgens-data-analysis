@@ -1,102 +1,20 @@
-CREATE TABLE novel_gens_db.environments (
-id integer PRIMARY KEY,
-name varchar NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL,
-slug varchar NOT NULL );
+--Migrated data to PostgreSQL
 
-CREATE TABLE novel_gens_db.collection_items (
-id integer PRIMARY KEY,
-collection varchar NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL,
-title varchar NOT NULL );
+--Database includes 16 tables: 
 
-CREATE TABLE novel_gens_db.content_favorites (
-id integer PRIMARY KEY,
-user_id integer NOT NULL,
-content_type varchar NOT NULL,
-content_id integer NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL );
-
-CREATE TABLE novel_gens_db.users (
-id integer PRIMARY KEY,
-email varchar NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL );
-
-CREATE TABLE novel_gens_db.creatures (
-id integer PRIMARY KEY,
-name varchar NOT NULL,
-description varchar NOT NULL, 
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL,
-rarity varchar NOT NULL,
-released_at datetime NOT NULL,
-release_id integer NOT NULL );
-
-CREATE TABLE novel_gens_db.content_feedback_forms (
-id integer PRIMARY KEY,
-user_id integer NOT NULL,
-content_type varchar NOT NULL,
-content_id integer NOT NULL,
-is_interesting bit NOT NULL,
-is_comical bit NOT NULL,
-is_scary bit NOT NULL,
-is_memorable bit NOT NULL,
-is_unique bit NOT NULL,
-is_comforting bit NOT NULL,
-is_low_quality bit NOT NULL,
-is_inappropriate bit NOT NULL,
-is_nonsensical bit NOT NULL,
-is_duplicate bit NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL,
-is_sad bit NOT NULL,
-is_powerful bit NOT NULL,
-is_dangerous bit NOT NULL );
-
-CREATE TABLE novel_gens_db.follows (
-id integer PRIMARY KEY,
-user_id integer NOT NULL,
-followed_content_type varchar NOT NULL,
-followed_content_id integer NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL );
-
-CREATE TABLE novel_gens_db.ownership_contracts (
-id integer PRIMARY KEY,
-creature_id integer NOT NULL,
-user_id integer NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL );
-
-CREATE TABLE novel_gens_db.environment_submitted_image_pairings (
-id integer PRIMARY KEY, 
-environment id integer NOT NULL,
-submitted_image_id integer NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL );
-
-CREATE TABLE novel_gens_db.kudos (
-id integer PRIMARY KEY,
-user_id integer NOT NULL,
-content_type varchar NOT NULL,
-content_id integer NOT NULL,
-created_at datetime NOT NULL,
-updated_at datetime NOT NULL );
-
-CREATE TABLE novel_gens_db.creature_tags (
-id integer PRIMARY KEY,
-creature_id integer NOT NULL,
-story_id integer NOT NULL,
-created_at datetime NOT NULL,
-updated_at dattime NOT NULL );
-
-CREATE TABLE novel_gens_db.submitted_images (
-id integer PRIMARY KEY,
-user_id integer,
-creature_id integer,
-title varchar,
-description varchar );
+--content_favorites
+--content_feedback
+--creature_environment_pairings
+--creature_story_pairings
+--creature_tag_pairings
+--creatures
+--environments
+--environment_story_pairings
+--environment_submitted_image_pairings
+--ownership_contracts
+--profiles
+--submitted_content_kudos
+--submitted_images
+--submitted_stories
+--tags
+--users
