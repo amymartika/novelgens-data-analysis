@@ -1,96 +1,95 @@
---Creature superlatives
---Which creature has been voted the most memorable?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_memorable = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 4;
+-- Which creature has been voted the most memorable? 
 
---Which creature has been voted the scariest?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_scary = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 3;
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where memorable = true
+group by creature
+order by total_votes desc;
 
---Which creature has been voted the saddest?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_sad = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 1;
+-- Which creature has been voted the scariest?
 
---Which creature has been voted the most powerful?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_powerful = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 1;
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where scary = true
+group by creature
+order by total_votes desc;
 
---Which creature has been voted the most unique?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_unique = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 4;
+-- Which creature has been voted the saddest?
 
---Which creature has been voted the most comical?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_comical = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 1;
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where sad = true
+group by creature
+order by total_votes desc;
 
---Which creature has been voted the most comforting?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_comforting = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 1;
+-- Which creature has been voted the most powerful?
 
---Which creature has been voted the most dangerous?
-SELECT 
-    creature.name,
-    COUNT(creature.id) AS total_votes
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creature
-ON feedback.content_id = creature.id
-WHERE is_dangerous = "TRUE"
-GROUP BY creature.id
-ORDER BY total_votes DESC
-LIMIT 1;
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where powerful = true
+group by creature
+order by total_votes desc;
+
+-- Which creature has been voted the most unique?
+
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where is_unique = true
+group by creature
+order by total_votes desc;
+
+-- Which creature has been voted the most comical?
+
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where comical = true
+group by creature
+order by total_votes desc;
+
+-- Which creature has been voted the most comforting?
+
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where comforting = true
+group by creature
+order by total_votes desc;
+
+-- Which creature has been voted the most dangerous?
+
+select
+    creatures.name as creature,
+    count(creatures.id) as total_votes
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where dangerous = true
+group by creature
+order by total_votes desc;
