@@ -1,22 +1,40 @@
---Which creatures have the most images submitted? How rare are those creatures?
-SELECT
-    creatures.name,
-    creatures.rarity,
-    COUNT(submissions.creature_id) AS total_submissions
-FROM novel_gens_db.creatures AS creatures
-INNER JOIN novel_gens_db.submitted_images AS submissions
-ON creatures.id = submissions.creature_id
-GROUP BY creatures.name
-ORDER BY total_submissions DESC;
+-- Display each creature, its rarity, and its tag.
+-- Split creatures across multiple rows if they have more than one tag.
 
---Is there an even distribution of feedback provided for each creature?
-SELECT 
-    feedback.content_id,
-    creatures.name,
-    COUNT(*) AS feedback_given,
-    creatures.created_at
-FROM novel_gens_db.content_feedback_forms AS feedback
-INNER JOIN novel_gens_db.creatures AS creatures
-ON feedback.content_id = creatures.id
-GROUP BY feedback.content_id
-ORDER BY creatures.created_at desc;
+select
+    creatures.id as id,
+    creatures.name as creature,
+    creatures.rarity as rarity,
+    tags.name as tag
+from creature_tag_pairings
+inner join creatures
+on creature_tag_pairings.creature_id = creatures.id
+inner join tags
+on creature_tag_pairings.tag_id = tags.id
+order by creatures.id;
+
+-- Which creatures have the most images submitted? How rare are those creatures?
+
+select
+    creatures.name as creature,
+    creatures.rarity as rarity,
+    count(submitted_images.creature_id) as total_submissions
+from creatures
+inner join submitted_images
+on creatures.id = submitted_images.creature_id
+group by name, rarity
+order by total_submissions desc;
+
+-- Is there an even distribution of feedback provided for each creature?
+-- Or does the data skew toward creatures that were created first?
+
+select
+    content_feedback.creature_id as creature_id,
+    creatures.name as creature,
+    count(*) as feedback_given,
+    date(creatures.created_at) as date_created
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+group by creature_id, name, date_created
+order by date_created;
