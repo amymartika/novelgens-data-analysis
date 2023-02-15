@@ -38,3 +38,16 @@ inner join creatures
 on content_feedback.creature_id = creatures.id
 group by creature_id, name, date_created
 order by date_created;
+
+-- What is distribution of creatures across environments?
+
+select 
+    environments.name as environment,
+    count(creatures.name) as creatures
+from creature_environment_pairings
+full join creatures 
+on creature_environment_pairings.creature_id = creatures.id
+inner join environments
+on creature_environment_pairings.environment_id = environments.id
+group by environment
+order by creatures desc;
