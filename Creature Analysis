@@ -1,0 +1,49 @@
+-- How many creatures were rated as "comforting"?
+
+select
+    count(*) as count
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where comforting = true;
+
+-- What words are most commonly present in the descriptions 
+-- for creatures rated as "comforting"?
+
+select
+    descriptions, 
+    count(*) as count
+from (
+    select regexp_split_to_table(creatures.description, '\s') as descriptions
+    from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where comforting = true
+)  t
+group by descriptions
+order by count desc;
+
+-- How many creatures were rated as "scary"?
+
+select
+    count(*) as count
+from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where scary = true;
+
+-- What words are most commonly present in the descriptions
+-- for creatures rated as "scary"?
+
+select
+    descriptions, 
+    count(*) as count
+from (
+    select regexp_split_to_table(creatures.description, '\s') as descriptions
+    from content_feedback
+inner join creatures
+on content_feedback.creature_id = creatures.id
+where scary = true
+)  t
+group by descriptions
+order by count desc;
