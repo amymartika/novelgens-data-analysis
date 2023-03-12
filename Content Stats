@@ -39,7 +39,7 @@ on content_feedback.creature_id = creatures.id
 group by creature_id, name, date_created
 order by date_created;
 
--- What is distribution of creatures across environments?
+-- What is the distribution of creatures across environments?
 
 select 
     environments.name as environment,
