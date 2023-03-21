@@ -47,3 +47,26 @@ where scary = true
 )  t
 group by descriptions
 order by count desc;
+
+-- Which creatures received some sort of feedback but were not considered
+-- interesting, comical, scary, memorable, unique, comforting, sad, 
+-- powerful, or dangerous? 
+
+select 
+    creatures.name,
+    feedback.creature_id,
+    count(feedback.creature_id) as no_feedback_count
+from creatures as creatures
+left join content_feedback as feedback
+on creatures.id = feedback.creature_id
+where feedback.interesting = false
+    and feedback.comical = false
+    and feedback.scary = false
+    and feedback.memorable = false
+    and feedback.is_unique = false
+    and feedback.comforting = false
+    and feedback.sad = false
+    and feedback.powerful = false
+    and feedback.dangerous = false
+group by creatures.name, creature_id
+order by no_feedback_count desc;
