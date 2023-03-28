@@ -76,3 +76,15 @@ join creatures as c
 on o.creature_id = c.id
 group by o.creature_id, c.name
 order by total_claims desc;
+
+-- Which creatures have received likes?
+
+select
+    f.content_id, 
+    c.name,
+    count(f.id) as likes
+from content_favorites as f
+inner join creatures as c
+on f.content_id = c.id
+group by f.content_id, c.name
+order by likes desc;
