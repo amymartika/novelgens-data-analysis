@@ -102,3 +102,19 @@ on f.creature_id = c.id
 group by t.creature_id, t.name, t.feedback
 having t.feedback = 'Feedback submitted'
 order by total desc;
+
+-- Check that the previous query is generating the correct results.
+
+select 
+    id,
+    interesting,
+    comical, 
+    scary, 
+    memorable,
+    is_unique, 
+    comforting,
+    sad, 
+    powerful,
+    dangerous
+from content_feedback
+where creature_id = 153;
