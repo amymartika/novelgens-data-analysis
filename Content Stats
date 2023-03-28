@@ -51,3 +51,28 @@ inner join environments
 on creature_environment_pairings.environment_id = environments.id
 group by environment
 order by creatures desc;
+
+-- Which creatures have more than 1 user-submitted image?
+
+select 
+    i.creature_id, 
+    c.name,
+    count(i.id) as total_submissions
+from submitted_images as i
+inner join creatures as c
+on i.creature_id = c.id
+group by i.creature_id, c.name
+having count(*) > 1
+order by total_submissions desc;
+
+-- How many claims does each creature have? 
+
+select
+    o.creature_id,
+    c.name,
+    count(o.id) as total_claims
+from ownership_contracts as o
+join creatures as c
+on o.creature_id = c.id
+group by o.creature_id, c.name
+order by total_claims desc;
