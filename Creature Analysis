@@ -70,3 +70,35 @@ where feedback.interesting = false
     and feedback.dangerous = false
 group by creatures.name, creature_id
 order by no_feedback_count desc;
+
+-- Which creatures have received at least 1 submission for being
+-- comical, scary, memorable, unique, comforting, sad, powerful, or dangerous?
+
+select
+    t.creature_id,
+    t.name,
+    count(t.feedback) as total
+from (
+select
+    f.creature_id,
+    c.name,
+    case
+        when interesting = true
+            or comical = true
+            or scary = true
+            or memorable = true
+            or is_unique = true
+            or comforting = true
+            or sad = true
+            or powerful = true
+            or dangerous = true
+        then 'Feedback submitted'
+        else 'No feedback submitted'
+    end as feedback
+from content_feedback as f
+inner join creatures as c
+on f.creature_id = c.id
+) t
+group by t.creature_id, t.name, t.feedback
+having t.feedback = 'Feedback submitted'
+order by total desc;
