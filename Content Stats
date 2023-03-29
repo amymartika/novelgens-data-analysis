@@ -88,3 +88,66 @@ inner join creatures as c
 on f.content_id = c.id
 group by f.content_id, c.name
 order by likes desc;
+
+-- Which creatures have at least 1 submitted feedback form,
+-- 1 image, AND 1 claim? 
+
+with feedback_cte as (
+select
+    t.creature_id,
+    t.name,
+    count(t.feedback) as feedback
+from (
+select
+    f.creature_id,
+    c.name,
+    case
+        when interesting = true
+            or comical = true
+            or scary = true
+            or memorable = true
+            or is_unique = true
+            or comforting = true
+            or sad = true
+            or powerful = true
+            or dangerous = true
+        then 'Feedback submitted'
+        else 'No feedback submitted'
+    end as feedback
+from content_feedback as f
+left join creatures as c
+on f.creature_id = c.id
+) t
+group by t.creature_id, t.name, t.feedback
+having t.feedback = 'Feedback submitted'
+),
+images_cte as (
+    select 
+    i.creature_id, 
+    c.name,
+    count(i.id) as images
+from submitted_images as i
+left join creatures as c
+on i.creature_id = c.id
+group by i.creature_id, c.name
+having count(i.id) > 0
+), 
+claims_cte as (
+select
+    o.creature_id,
+    c.name,
+    count(o.id) as claims
+from ownership_contracts as o
+join creatures as c
+on o.creature_id = c.id
+group by o.creature_id, c.name
+)
+select *
+from feedback_cte
+inner join images_cte
+using (creature_id)
+inner join claims_cte
+using (creature_id)
+order by creature_id;
+
+
